@@ -28,25 +28,36 @@ We then install all the components necessary to run Python, Jupyter Notebooks, a
 #### 2) Importing and preprocessing the dataset
 
 We import a subset of the data from the Python scikit-learn library: our dataset consists of 42 columns/attributes and around 500000 rows/observations, 
-and the corresponding targets/classes.
+and the corresponding targets/classes. We represent take a look at the distribution of the targets/classes:
+
+![Distribution of targets/classes](https://github.com/EkaterinaChueva/IMPLEMENTATION-OF-K-MEANS-ALGORITHM-IN-A-DISTRIBUTED-SYSTEM/blob/main/class_distribution.png)
+
 K-means algorithms perform best when provided with comparable size classes. Therefore, we decide to keep only the classes with the most data (>10000 occurrences). 
+We are left with 3 classes ($k=3$) – smurf, neptune, and normal.
 
-![alt text](https://github.com/EkaterinaChueva/IMPLEMENTATION-OF-K-MEANS-ALGORITHM-IN-A-DISTRIBUTED-SYSTEM/blob/main/class_distribution.png)
-
-We are left with 3 classes – smurf, neptune and normal. After we also wanted to keep only numeric columns, since later we will use the distance between points to classify a point (datum) to a specific class.
+We further modify the dataset by keeping only the numeric columns/attributes. If we had kept all columns/attributes, we would have used a mixed metric 
+(defined as the sum of the Euclidean and discrete distances): in that case, the non-numeric columns/attributes would give larger contributions 
+than the numeric ones, leading to an imbalanced estimate of the centroid and cluster.
 
 #### 3) Algorithms
 
-The following section focuses on implementing the k-means algorithms for k=3: k-means||, k-means++ and naive k-means.
-Each algorithm consists of the initialization (different for each specific k-means type) and the Lloyd’s algorithm –
-the algorithm for assigning each datum to the nearest centroid.
+The following section focuses on the implementation of the 3 variations of the k-means algorithm: k-means||, k-means++, and naive k-means.
+Each algorithm consists of an initialization (specific to that variation) and Lloyd’s algorithm, which assigns each datum to the nearest centroid.
 
 #### 3.1) K-means||
 
-The idea of the K-means parallel is that in the initialization for the given number of iterations we calculate the possible centroids
-and in the end we choose only k=3 centroids among them that have the largest weights.
-After this initialization we ended up with k=3 centroids which already have a “good start” and in theory require less Lloyd’s iterations (we prove it in practice as well).
-For k-means|| we also found the optimal parameters by analysing the trend of the cost per number of iteration.
+The idea behind the K-means|| initialization is to find a good compromise between the random initialization of the naive approach and the k-means++ initialization, which can be thought as occurring at two ends of a spectrum. From the naive approach, we would like to select multiple points at a time and keep the number of iterations small. From the k++ algorithm, we want to take the non-uniform distribution from which the points are randomly extracted. 
+
+The desired sweet spot is found by tuning the two main parameters of the distribution, which are:
+- $l$ is a parameter related to the non-uniform distribution from which new centroids are extracted: the distribution is proportional to the square distance, so that we are more likely to be picking new centroids far away from the ones that we already have
+- the number of iterations of the initialization
+
+Because of the fixed number of iterations, this algorithm doesn’t accept the first k centroids that it finds, as the previous algorithms do. 
+It accepts the $k$ most important centroids that are found, based on the number of observations that are in the corresponding cluster. 
+For this reason, the algorithm is more likely (compared to other random initializations) to be going in the right direction from the beginning of Lloyd's algorithm. This also seems to be the reason why the k-means|| algorithm is more stable, requires fewer Lloyd’s iterations to converge, and is more likely to converge to the global minimum of the cost.
+
+After this initialization we ended up with k=3 centroids which already have a “good start” and in theory require fewer Lloyd’s iterations (we prove it in practice as well).
+For k-means|| we also found the optimal parameters by analyzing the trend of the cost per number of iterations.
 
 #### 3.2) K-means++
 
@@ -55,7 +66,7 @@ then we choose the rest of the centroids from the remaining data points with pro
 
 #### 3.3) Naive k-means
 
-No fancy initialization for this algorithm, we just chose k=3 centroids uniformly at a random.
+This algorithm extracts $k=3$ centroids randomly from a uniform distribution (without repetition).
 
 #### 4) Comparison of the algorithms
 
