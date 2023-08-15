@@ -6,7 +6,7 @@ This work is the final project of the Management and Analysis of Physics Dataset
 the University of Padova during Academic Year 2022-2023 by Professor J. Pazzini. 
 
 The **goals of the project** are to:
-- build a Spark cluster of 3 Virtual Machines provided on the OpenStack-based cloud provided by the University of Padova (called [Cloudveneto](https://cloudveneto.it/))
+- build a Spark cluster of 3 Virtual Machines provided on the OpenStack-based cloud provided by the University of Padova ([Cloudveneto](https://cloudveneto.it/))
 - implement 3 variations of the K-means algorithm (standard – “naive” one, K-means++ and K-means||)
 - compare the 3 variations based on the performance over the chosen dataset, to ultimately find the best algorithm. 
 
@@ -15,19 +15,21 @@ Each observation belongs to the cluster with the nearest in terms of distance me
 A Euclidean distance is employed for numerical attributes, while a discrete distance is used for non-numerical ones.
 
 The dataset chosen for the project is [kdcup99 dataset](https://scikit-learn.org/stable/datasets/real_world.html#kddcup-99-dataset),
-which is an artificial dataset representing “bad” and “good” internet connections (intrusions/attacks and normal connections). Each observation consists of a series of attributes, some of which are numeric and some aren't.
+which is an artificial dataset representing “bad” and “good” internet connections (intrusions/attacks and normal connections). 
+Each observation consists of a series of attributes, which are numeric and non-numeric.
 
 ### Content of the project
 
 #### 1) Building a Spark cluster
 
-We firstly built a Spark cluster of 3 VMs, specifying one machine as a master and worker at the same time an two others as workers.
-Then we made it possible to work using PySpark in a Jupyter Notebook.
+We first build a Spark cluster of 3 virtual machines: we specify that one machine is both a master and worker, and the remaining two are workers.
+We then install all the components necessary to run Python, Jupyter Notebooks, and PySpark on said VMs.
 
 #### 2) Importing and preprocessing the dataset
 
-We took the data (consisting of 42 columns and around 500000 rows) and the corresponding targets (classes).
-K-means algorithms perform best when provided with comparable size classes. Therefore, we kept only the classes with the most data (>10000 occurences). 
+We import a subset of the data from the Python scikit-learn library: our dataset consists of 42 columns/attributes and around 500000 rows/observations, 
+and the corresponding targets/classes.
+K-means algorithms perform best when provided with comparable size classes. Therefore, we decide to keep only the classes with the most data (>10000 occurrences). 
 
 ![alt text](https://github.com/EkaterinaChueva/IMPLEMENTATION-OF-K-MEANS-ALGORITHM-IN-A-DISTRIBUTED-SYSTEM/blob/main/class_distribution.png)
 
