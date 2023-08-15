@@ -2,18 +2,20 @@
 
 by Erica Brisigotti, Ekaterina Chueva, Sofia Pacheco Garcia, Nadillia Sahputra
 
-This work is the final project of the Management and Analysis of Physics Dataset (mod. B) class from the Physics of Data Master's Degree held at
-the University of Padova during Academic Year 2022-2023 (by professor J. Pazzini). 
+This work is the final project of the Management and Analysis of Physics Dataset (mod. B) class from the Physics of Data Master's Degree, held at
+the University of Padova during Academic Year 2022-2023 by Professor J. Pazzini. 
 
-**The goal of the project**: build a Spark cluster of 3 Virtual Machines provided on the OpenStack-based cloud called cloudveneto.it,
-implement 3 variations of the K-means algorithm (standard – “naive” one, K-means++ and K-means||),
-compare them based on the performance on the chosen dataset and find the best algorithm. 
+The **goals of the project** are to:
+- build a Spark cluster of 3 Virtual Machines provided on the OpenStack-based cloud provided by the University of Padova (called [Cloudveneto](https://cloudveneto.it/))
+- implement 3 variations of the K-means algorithm (standard – “naive” one, K-means++ and K-means||)
+- compare the 3 variations based on the performance over the chosen dataset, to ultimately find the best algorithm. 
 
-K-means is an unsupervised machine learning algorithm which aim to partition n observations to k clusters.
-Each observation belongs to the cluster with the nearest in terms of Euclidean distance mean (called centroid).
+K-means is an unsupervised machine learning algorithm, which aims to partition $n$ observations to $k$ clusters.
+Each observation belongs to the cluster with the nearest in terms of distance mean (called centroid). 
+A Euclidean distance is employed for numerical attributes, while a discrete distance is used for non-numerical ones.
 
-The dataset chosen for the project is kdcup99 dataset (https://scikit-learn.org/stable/datasets/real_world.html#kddcup-99-dataset),
-which is an artificial dataset representing “bad” and “good” internet-connections (intrusions/attacks and normal connections).
+The dataset chosen for the project is [kdcup99 dataset](https://scikit-learn.org/stable/datasets/real_world.html#kddcup-99-dataset),
+which is an artificial dataset representing “bad” and “good” internet connections (intrusions/attacks and normal connections). Each observation consists of a series of attributes, some of which are numeric and some aren't.
 
 ### Content of the project
 
